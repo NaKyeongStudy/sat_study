@@ -1,0 +1,67 @@
+import java.util.*;
+import java.io.*;
+import java.math.*;
+public class Main {
+    public static void main(String args[]) {
+        InputStream inputStream = System.in;
+        OutputStream outputStream = System.out;
+        InputReader in = new InputReader(inputStream);
+        PrintWriter out = new PrintWriter(outputStream);
+        StringBuilder sb = new StringBuilder();             //여기까지는 걍 끌어다 쓴
+
+        int N = in.nextInt();
+        String[] dic = new String[N];
+        for(int i =0;i<N;i++){
+           dic[i] = in.next();
+        }
+        for(int i = N-1; i>0;i--){
+            for(int j = 0; j<i ; j++){
+                if(dic[j].length()>dic[j+1].length()) swap(dic,j,j+1);
+                else if(dic[j].length()==dic[j+1].length()&&dic[j].compareTo(dic[j+1])>0) swap(dic,j,j+1);
+            }
+        }
+        for(int i=0; i<N-1;i++){
+            if(dic[i].equals(dic[i+1])) continue;
+            sb.append(dic[i]).append('\n');
+        }
+        sb.append(dic[N-1]);
+        System.out.println(sb);
+        /*for(int i=0; i<N;i++){
+            sb.append(age[N-1-i]).append(' ').append(name[N-1-i]).append('\n');
+        }
+        System.out.println(sb);  //출력 부분*/
+
+    }
+    static void swap(String[] dic,int i, int j){
+        String temp = dic[i];
+        dic[i] = dic[j];
+        dic[j] = temp;
+    }
+
+}
+
+class InputReader {
+    public BufferedReader reader;
+    public StringTokenizer tokenizer;
+
+    public InputReader(InputStream stream) {
+        reader = new BufferedReader(new InputStreamReader(stream), 32768);
+        tokenizer = null;
+    }
+
+    public String next() {
+        while (tokenizer == null || !tokenizer.hasMoreTokens()) {
+            try {
+                tokenizer = new StringTokenizer(reader.readLine());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return tokenizer.nextToken();
+    }
+
+    public int nextInt() {
+        return Integer.parseInt(next());
+    }
+
+}
